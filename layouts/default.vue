@@ -1,8 +1,31 @@
 <template>
-  <div>
-    <Nuxt />
+  <Error v-if="error" :error="error" />
+  <div v-else>
+    <div class="tna-wrapper">
+      <div class="tna-content">
+        <Nuxt />
+        <Alert v-if="$store.state.alertInfo" />
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+import Error from '~/layouts/error.vue'
+import Alert from '~/components/MVP/Common/Alert.vue'
+
+export default {
+  components: {
+      Alert,
+      Error
+    },
+    data () {
+    return {
+      error: false
+    }
+  }
+}
+</script>
 
 <style>
 html {

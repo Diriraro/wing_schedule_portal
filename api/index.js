@@ -29,13 +29,16 @@ let url = "localhost:19490";
 //     });
 // });
 
+/* Sample
 // /api/log
-app.post("/log", (req, res) => {
+app.post('/log', (req, res) => {
   console.log(req.body);
   res.status(200).send();
 });
 
-app.use("/test", require("./test"));
+// Import API Routes
+app.use('/test', require('./test'));  // /api/test.js  사용시
+*/
 
 // 모듈로 사용할 수 있도록 export
 // 앱의 /api/* 라우트로 접근하는 모든 요청은 모두 app 인스턴스에게 전달된다.
