@@ -82,4 +82,14 @@ export default {
       },
     },
   },
+  serverMiddleware: [
+    bodyParser.json(),
+    bodyParser.urlencoded({ extended: true }),
+    session({
+      secret: "super-secret-key",
+      resave: false,
+      saveUninitialized: true,
+    }),
+    { path: "/api", handler: "~/api/index.js" },
+  ],
 };

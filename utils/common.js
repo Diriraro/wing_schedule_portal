@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from "moment";
 
 let store;
 let apis;
@@ -27,61 +27,67 @@ const logError = (error) => {
     console.log(error.request);
   } else {
     // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
-    console.log('Error', error.message);
+    console.log("Error", error.message);
   }
   // console.log(error.config);
 };
 
 /* alert */
 const alert = (msg, callback) => {
-  store.commit('openAlert', {
+  store.commit("openAlert", {
     text: msg,
-    arrBtn: [{ text: '확인', event: callback }],
+    arrBtn: [{ text: "확인", event: callback }],
   });
 };
 
 /* asyncAlert */
-const asyncAlert = (msg) => new Promise((resolve) => {
-  store.commit('openAlert', {
-    text: msg,
-    arrBtn: [{ text: '확인', event: () => { resolve(true); } }],
+const asyncAlert = (msg) =>
+  new Promise((resolve) => {
+    store.commit("openAlert", {
+      text: msg,
+      arrBtn: [
+        {
+          text: "확인",
+          event: () => {
+            resolve(true);
+          },
+        },
+      ],
+    });
   });
-});
-
 
 /* confirm */
 const confirm = (msg, okCallback, cancelCallback) => {
-  store.commit('openAlert', {
+  store.commit("openAlert", {
     text: msg,
     arrBtn: [
-      { text: '확인', event: okCallback },
-      { text: '취소', event: cancelCallback },
+      { text: "확인", event: okCallback },
+      { text: "취소", event: cancelCallback },
     ],
   });
 };
 
 /* asyncConfirm */
-const asyncConfirm = (msg) => new Promise((resolve) => {
-  store.commit('openAlert', {
-    text: msg,
-    arrBtn: [
-      { text: '확인', event: () => { resolve(true); } },
-      { text: '취소', event: () => { resolve(false); } },
-    ],
+const asyncConfirm = (msg) =>
+  new Promise((resolve) => {
+    store.commit("openAlert", {
+      text: msg,
+      arrBtn: [
+        {
+          text: "확인",
+          event: () => {
+            resolve(true);
+          },
+        },
+        {
+          text: "취소",
+          event: () => {
+            resolve(false);
+          },
+        },
+      ],
+    });
   });
-});
-
-/* serializeAreaList */
-function serializeAreaList(areas) {
-  const result = [];
-  const q = [...areas];
-  while (q.length > 0) {
-    const { area_id, name, children, scope, parent_name } = q.pop();
-    result.push({ areaCode: area_id, areaName: name, scope, parentName: parent_name });
-    if (children && children.length > 0) q.push(...children);
-  }
-  store.commit('setSerializedAreaList', result);
-}
 
 /* copyObject */
 function copyObject(object) {
@@ -89,11 +95,11 @@ function copyObject(object) {
   let copiedObject = {};
   if (Array.isArray(targetObject)) {
     copiedObject = targetObject.map(copyObject);
-  } else if (typeof targetObject === 'object') {
+  } else if (typeof targetObject === "object") {
     for (const key in targetObject) {
       if (Array.isArray(targetObject[key])) {
         copiedObject[key] = targetObject[key].map(copyObject);
-      } else if (typeof targetObject[key] === 'object') {
+      } else if (typeof targetObject[key] === "object") {
         copiedObject[key] = copyObject(targetObject[key]);
       } else {
         copiedObject[key] = targetObject[key];
@@ -105,26 +111,9 @@ function copyObject(object) {
   return copiedObject;
 }
 
-/* serializeSearchOption */
-function serializeSearchOption(searchOption) {
-  const result = [];
-  for (const key in searchOption) {
-    if (Array.isArray(searchOption[key])) {
-      result.push(`${key}=${searchOption[key].join(',')}`);
-    } else if (typeof searchOption[key] === 'object') {
-      for (const subKey in searchOption[key]) {
-        result.push(`${key}_${subKey}=${encodeURIComponent(searchOption[key][subKey])}`);
-      }
-    } else {
-      result.push(`${key}=${encodeURIComponent(searchOption[key])}`);
-    }
-  }
-  return result.join('&');
-}
-
 /* deserializeSearchOption */
 function deserializeSearchOption(queryObject) {
-  const excludeKeys = ['category_ids', 'area_ids', 'provider_ids', 'policies'];
+  const excludeKeys = ["category_ids", "area_ids", "provider_ids", "policies"];
   const splitPairs = (queryObject) => {
     const pairs = [];
     for (const key in queryObject) {
@@ -135,14 +124,17 @@ function deserializeSearchOption(queryObject) {
   const queryToObject = ({ key, value }) => {
     const obj = {};
     if (excludeKeys.includes(key)) {
-      obj[key] = value && value.split(',').map((id) => {
-        const numberId = Number(id);
-        return isNaN(numberId) ? id : numberId;
-      }) || undefined;
+      obj[key] =
+        (value &&
+          value.split(",").map((id) => {
+            const numberId = Number(id);
+            return isNaN(numberId) ? id : numberId;
+          })) ||
+        undefined;
       return obj;
     }
-    if (key.includes('_')) {
-      const [pKey, sKey] = key.split('_');
+    if (key.includes("_")) {
+      const [pKey, sKey] = key.split("_");
       obj[pKey] = {};
       obj[pKey][sKey] = value;
       return obj;
@@ -157,18 +149,25 @@ function deserializeSearchOption(queryObject) {
   const mergeObject = (mergeObj, obj) => {
     const convertValue = (value) => {
       if (!value || Object.keys(value).length === 0) {
-        return '';
-      } if (value == 'true') {
+        return "";
+      }
+      if (value == "true") {
         return true;
-      } if (value == 'false') {
+      }
+      if (value == "false") {
         return false;
-      } if (!isNaN(Number(value))) {
+      }
+      if (!isNaN(Number(value))) {
         return Number(value);
       }
       return value;
     };
     for (const key in obj) {
-      if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key]) {
+      if (
+        typeof obj[key] === "object" &&
+        !Array.isArray(obj[key]) &&
+        obj[key]
+      ) {
         if (!mergeObj[key]) mergeObj[key] = {};
         for (const subKey in obj[key]) {
           mergeObj[key][subKey] = convertValue(obj[key][subKey]);
@@ -191,18 +190,21 @@ function getUID(vueInstance) {
 
 /* matchEmail */
 function matchEmail(value) {
-  return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
+  return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    value
+  );
 }
 
 /* openLayerPopup */
 const openLayerPopup = (popName, data) => {
-  store.dispatch('openLayerPopup', { popName, data });
+  store.dispatch("openLayerPopup", { popName, data });
 };
 
 /* closeLayerPopup */
 const closeLayerPopup = (popName) => {
-  if (store) { // mounted 되기전 beforeDestroy 시 에러남 방지.
-    store.dispatch('closeLayerPopup', popName);
+  if (store) {
+    // mounted 되기전 beforeDestroy 시 에러남 방지.
+    store.dispatch("closeLayerPopup", popName);
   }
 };
 
@@ -210,10 +212,10 @@ const closeLayerPopup = (popName) => {
 const parseNumber = (num) => {
   let retNum = num;
   if (!retNum) return 0;
-  if (typeof retNum === 'number') return retNum;
-  if (typeof retNum === 'string') {
-    retNum = retNum.replace(/,\s*$/, '');
-    if (retNum.indexOf('.') !== -1) {
+  if (typeof retNum === "number") return retNum;
+  if (typeof retNum === "string") {
+    retNum = retNum.replace(/,\s*$/, "");
+    if (retNum.indexOf(".") !== -1) {
       retNum = Number.parseFloat(retNum);
     } else {
       retNum = Number.parseInt(retNum, 10);
@@ -226,183 +228,68 @@ const parseNumber = (num) => {
 /* isNumberStr : 숫자 또는 숫자형식의 문자열 이면 true */
 const isNumberStr = (str) => {
   if (!str) return false;
-  return !(/[^0-9]/.test(String(str)));
-}
-
-/* inicisPay */
-const inicisPay = async (device, formData) => {
-  const returnUrl = `${window.location.origin}/pg/complete`; // 완료 redirect url
-  if (device === 'pc') { // PC
-    if (!isInicisLoaded) {
-      (function () {
-        const m = document.getElementsByTagName('script')[0];
-        const a = document.createElement('script');
-        a.async = 1;
-        if (formData.mid === 'INIpayTest') {
-          a.src = 'https://stgstdpay.inicis.com/stdjs/INIStdPay.js';
-        } else {
-          a.src = 'https://stdpay.inicis.com/stdjs/INIStdPay.js';
-        }
-        m.parentNode.insertBefore(a, m);
-      })();
-      isInicisLoaded = true;
-    }
-    try {
-      if (document.getElementById('SendPayForm_id')) {
-        document.getElementById('SendPayForm_id').remove();
-      }
-      const formElement = document.createElement('form');
-      formElement.id = 'SendPayForm_id';
-      formElement.method = 'post';
-      const obj = {
-        ...formData,
-        returnUrl: returnUrl,
-        closeUrl: `${window.location.origin}/pg/close`,
-      };
-      obj.mKey = obj.mkey;
-      // console.log(`inicisPay PG pc  obj : ${JSON.stringify(obj)}`);
-      // TODO 테스트용 나중에 삭제 또는 주석처리!
-      /* let refMKey, regSignature;
-      await apis.sendApi('/sha256/mid', {}, obj).then((resp) => {
-        refMKey = resp.data;
-        console.log(`테스트 비교용 mKey: ${refMKey}`);
-      });
-      await apis.sendApi('/sha256/signature', {}, obj).then((resp) => {
-        regSignature = resp.data;
-        console.log(`테스트 비교용 signature: ${regSignature}`);
-      }); */ 
-      // TODO_END ---
-      Object.keys(obj).forEach((key) => {
-        const inputElement = document.createElement('input');
-        inputElement.setAttribute('type', 'hidden');
-        inputElement.setAttribute('name', key);
-        inputElement.setAttribute('value', obj[key]);
-        formElement.appendChild(inputElement);
-      });
-      document.body.appendChild(formElement);
-      const interval = setInterval(() => {
-        if (window.INIStdPay) {
-          window.INIStdPay.pay('SendPayForm_id');
-          clearInterval(interval);
-        }
-      }, 500);
-    } catch (e) {
-      alert(e);
-    }
-  } else { // Mobile
-    const formElement = document.createElement('form');
-    formElement.name = 'mobileweb';
-    formElement.method = 'post';
-    formElement.setAttribute('accept-charset', 'euc-kr');
-    formElement.action = 'https://mobile.inicis.com/smart/payment/';
-    formElement.target = '_self';
-    const obj = {
-      ...formData,
-      next_url: returnUrl,
-      noti: formData.oid,
-    };
-    // console.log(`inicisPay PG mobile  obj : ${JSON.stringify(obj)}`);
-    Object.keys(obj).forEach((key) => {
-      // console.log(`P_${key.toUpperCase()} = ${obj[key]}`)
-      const inputElement = document.createElement('input');
-      inputElement.setAttribute('type', 'hidden');
-      inputElement.setAttribute('name', `P_${key.toUpperCase()}`);
-      inputElement.setAttribute('value', obj[key]);
-      formElement.appendChild(inputElement);
-    });
-    document.body.appendChild(formElement);
-    formElement.submit();
-  }
+  return !/[^0-9]/.test(String(str));
 };
 
 /* fullLoading */
 const fullLoading = (show = true) => {
-  if (show === true || show === 'loading') {
-    openLayerPopup('fullLoading');
+  if (show === true || show === "loading") {
+    openLayerPopup("fullLoading");
   } else {
-    closeLayerPopup('fullLoading');
+    closeLayerPopup("fullLoading");
   }
-}
+};
 
 /* goErrorPageAndAlert */
-const goErrorPageAndAlert = (message = '오류가 발생하였습니다.') => {
+const goErrorPageAndAlert = (message = "오류가 발생하였습니다.") => {
   window.$nuxt.error({ statusCode: 406, message: message }); // 에러 메시지 alert 후 전 화면 가기
-}
+};
 
 /* goBack */
 const goBack = () => {
   if (store.state.history.arrHistory.length > 0) {
-    const backUrl = store.state.history.arrHistory[store.state.history.arrHistory.length - 1];
+    const backUrl =
+      store.state.history.arrHistory[store.state.history.arrHistory.length - 1];
     console.log(`back() backUrl: ${backUrl}`);
-    store.commit('history/popHistory');
+    store.commit("history/popHistory");
     router.back();
   } else {
-    console.log('back() goMain: /main');
-    router.push('/main');
+    console.log("back() goMain: /main");
+    router.push("/main");
   }
-}
-
-/* percentPrice */
-const percentPrice = (price, percent) => {
-  return Math.round(price * (1 - percent * 0.01)); // 소수점 첫째자리 반올림
-}
-
-/* percentDcPrice */
-// 할인금액 = 전체금액에서 할인적용한 금액을 뺀 금액. 틀리지 않게 동일한 방법 적용. 반올림 때문에 틀어질 수 있음.
-const percentDcPrice = (price, percent) => {
-  return (price - percentPrice(price, percent));
-}
-
-/* mPointPrice */
-const mPointPrice = (finalPrice, percent = 10) => {
-  // const price = finalPrice * (1 - percent * 0.01);
-  // return Math.floor(price / 10) * 10; // 원단위 버림
-  // 2021-08-30 고객요청. 현대카드 앱에서 포인트 사용 알림 온 금액과 같게 변경.
-  let dc = finalPrice * percent * 0.01;
-  dc = Math.floor(dc / 10) * 10; // 원단위 버림
-  const price = finalPrice - dc;
-  return price;
-}
+};
 
 /* getLocalMoment
 - utc 날짜를 로컬 날짜로 반환
 - {{ $common.getLocalMoment('2021-07-23T02:40:48.852+00:00', 'format') }} => 2021-07-23 11:40:48
 */
-const getLocalMoment = (utcString, returnType = 'moment', format = 'YYYY-MM-DD HH:mm:ss') => {
+const getLocalMoment = (
+  utcString,
+  returnType = "moment",
+  format = "YYYY-MM-DD HH:mm:ss"
+) => {
   // console.log(`getLocalMoment    utcString: ${utcString}   returnType: ${returnType}`);
-  if (returnType === 'moment') {
+  if (returnType === "moment") {
     // console.log(`getLocalMoment    local date: ${moment.utc(utcString).local()}`);
     return moment.utc(utcString).local();
-  } else { // returnType 'format'
+  } else {
+    // returnType 'format'
     // console.log(`getLocalMoment    local format: ${moment.utc(utcString).local().format(format)}`);
     return moment.utc(utcString).local().format(format);
   }
-}
+};
 
-const getMapSrc = (latitude, longitude, zoom_level) => {
-  // 방법1
-  // return `https://www.google.com/maps?q=${latitude},${longitude}&hl=ko&z=${zoom_level}&output=embed`;
-  // 방법2
-  // return `https://maps.google.com/?q=${latitude},${longitude}&hl=ko&z=${zoom_level}&output=svembed`;
-  // 방법3
-  // return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${latitude},${longitude}!6i${zoom_level}!3m1!1sko!5m1!1sko`;
-  // 방법4
-  return `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${latitude},${longitude}!6i${zoom_level}!3m2!1sko!2skr!5m2!1sko!2skr`;
-}
-
-const nvlStr = (str, defaultValue = '') => {
-  if (!str || str === null || str === 'null') return defaultValue;
+const nvlStr = (str, defaultValue = "") => {
+  if (!str || str === null || str === "null") return defaultValue;
   return str;
-}
+};
 
 export default {
   logError,
   alert,
   confirm,
   asyncConfirm,
-  serializeAreaList,
   copyObject,
-  serializeSearchOption,
   deserializeSearchOption,
   getUID,
   matchEmail,
@@ -410,15 +297,10 @@ export default {
   closeLayerPopup,
   parseNumber,
   isNumberStr,
-  inicisPay,
   fullLoading,
   goErrorPageAndAlert,
   goBack,
-  percentPrice,
-  percentDcPrice,
-  mPointPrice,
   getLocalMoment,
   asyncAlert,
-  getMapSrc,
   nvlStr,
 };
