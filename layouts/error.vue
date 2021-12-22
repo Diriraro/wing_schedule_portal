@@ -2,7 +2,9 @@
   <section class="tna-error-page-20210809">
     <div class="systemWrap-pc">
       <div class="service-wrap">
-        <h1 class="tit" v-html="message" />
+        <h1 class="tit">
+          {{ message }}
+        </h1>
         <div class="subcopy">
           페이지가 제거되었거나 변경되어 사용하실 수 없습니다.
         </div>
@@ -27,6 +29,9 @@ export default {
       const { statusCode } = this.error
       let message = ''
       switch (statusCode) {
+        case 403:
+          message = '토큰 유효시간이 종료되었습니다. 재로그인이 필요합니다.'
+          break
         case 404:
           message = '요청하신 페이지를 찾을 수 없습니다.'
           break
