@@ -1,6 +1,6 @@
 <template>
   <div class="layout-template">
-    <!-- <Header ref="header" /> -->
+    <Header ref="header" />
     <div id="tna-content-sec">
       <client-only>
         <slot name="content" />
@@ -12,7 +12,12 @@
 </template>
 
 <script>
+import Header from '~/components/MVP/Common/Header.vue'
+
 export default {
+  components: {
+    Header
+  },
   data () {
     return {
       isMainPage: (this.$route.path === '/' || this.$route.path === '/main')
