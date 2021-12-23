@@ -90,7 +90,8 @@ sw.*
 *.swp
 
 /build
-/api/apiUtils.js
-/api/common.js
-/api/file.js
-/api/indexbackup.js
+/api/*
+#/api/apiUtils.js
+#/api/common.js
+#/api/file.js
+#/api/indexbackup.js
