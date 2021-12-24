@@ -23,6 +23,11 @@ axios.interceptors.request.use(
   }
 );
 
+function postApi(path, body, config) {
+  const url = `/api${path}`;
+  return axios.post(url, body, config);
+}
+
 function sendApi(path, query, body) {
   const queryString =
     query && typeof query === "object"
@@ -36,4 +41,5 @@ function sendApi(path, query, body) {
 
 export default {
   sendApi,
+  postApi,
 };
