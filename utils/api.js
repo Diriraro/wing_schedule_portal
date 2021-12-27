@@ -22,10 +22,19 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+// ------------------------------------------------
+// common api
+// ------------------------------------------------
 
-function postApi(path, body, config) {
-  const url = `/api${path}`;
-  return axios.post(url, body, config);
+function getApi(path, query, config) {
+  let queryString = query;
+  if (query && typeof query === "object") {
+    queryString = Object.keys(query)
+      .map((v) => `${v}=${query[v]}`)
+      .join("&");
+  }
+  const url = `/api${path}${queryString ? `?${queryString}` : ""}`;
+  return axios.get(url, config);
 }
 
 function sendApi(path, query, body) {
@@ -39,7 +48,35 @@ function sendApi(path, query, body) {
   return axios.post(url, body);
 }
 
+function postApi(path, body, config) {
+  const url = `/api${path}`;
+  return axios.post(url, body, config);
+}
+
+// ------------------------------------------------
+// sign api
+// ------------------------------------------------
+
+function getSignApi(path, query, config) {
+  let queryString = query;
+  if (query && typeof query === "object") {
+    queryString = Object.keys(query)
+      .map((v) => `${v}=${query[v]}`)
+      .join("&");
+  }
+  const url = `/${path}${queryString ? `?${queryString}` : ""}`;
+  return axios.get(url, config);
+}
+
+function postSignApi(path, body, config) {
+  const url = `/sign${path}`;
+  return axios.post(url, body, config);
+}
+
 export default {
   sendApi,
   postApi,
+  getApi,
+  getSignApi,
+  postSignApi,
 };

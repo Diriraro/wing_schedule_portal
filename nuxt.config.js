@@ -91,5 +91,6 @@ export default {
       saveUninitialized: true,
     }),
     { path: "/api", handler: "~/api/index.js" },
+    { path: "/sign", handler: "~/api/sign.js" },
   ],
 };
