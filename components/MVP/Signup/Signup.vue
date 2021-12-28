@@ -33,10 +33,9 @@
             charClass: this.charClass
           }
           const resp = await this.$apis.postSignApi('/wingUserCreate', body)
-          // const resp = await axios.post('http://127.0.0.1:19490/wingService/wingUserLogin', { userIdPk: this.id, password: this.pw })
           if (resp) {
             console.log(resp)
-            this.$router.push('/index')
+            this.$router.push('/')
           }
         } catch (e) {
           console.log(e)
@@ -46,11 +45,11 @@
         try {
           const resp = await this.$apis.getSignApi('/wingUserCheck', { nickname: this.nickname })
           if (resp) {
-            alert(resp)
+            alert(resp.data.message)
             console.log(resp)
           }
         } catch (e) {
-          alert(e)
+          alert('등록되지 않은 캐릭터명입니다. 관리자에게 문의하세요.')
           console.log(e)
         }
       }

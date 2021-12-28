@@ -1,5 +1,5 @@
 <template>
-  <div />
+  <div id="sche-header-sec" />
 </template>
 
 <script>

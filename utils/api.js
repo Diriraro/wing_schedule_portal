@@ -64,7 +64,7 @@ function getSignApi(path, query, config) {
       .map((v) => `${v}=${query[v]}`)
       .join("&");
   }
-  const url = `/${path}${queryString ? `?${queryString}` : ""}`;
+  const url = `/sign${path}${queryString ? `?${queryString}` : ""}`;
   return axios.get(url, config);
 }
 
