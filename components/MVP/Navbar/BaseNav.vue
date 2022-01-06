@@ -1,20 +1,20 @@
 <template>
   <nav :class="classes" class="navbar">
     <div :class="containerClasses">
-      <slot name="brand"></slot>
+      <slot name="brand" />
 
       <slot name="toggle-button">
         <button
-          class="navbar-toggler collapsed"
           v-if="hasMenu"
+          class="navbar-toggler collapsed"
           type="button"
-          @click="toggleMenu"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          @click="toggleMenu"
         >
-          <span class="navbar-toggler-bar navbar-kebab"></span>
-          <span class="navbar-toggler-bar navbar-kebab"></span>
-          <span class="navbar-toggler-bar navbar-kebab"></span>
+          <span class="navbar-toggler-bar navbar-kebab" />
+          <span class="navbar-toggler-bar navbar-kebab" />
+          <span class="navbar-toggler-bar navbar-kebab" />
         </button>
       </slot>
 
@@ -23,21 +23,28 @@
         @before-enter="onTransitionStart"
       >
         <div
+          v-show="show"
           class="collapse navbar-collapse show"
           :class="menuClasses"
-          v-show="show"
         >
-          <slot></slot>
+          <slot />
         </div>
       </CollapseTransition>
     </div>
   </nav>
 </template>
 <script>
-import { CollapseTransition } from 'vue2-transitions';
+import { CollapseTransition } from 'vue2-transitions'
 
 export default {
-  name: 'base-nav',
+  name: 'BaseNav',
+  components: {
+    CollapseTransition
+  },
+  model: {
+    prop: 'show',
+    event: 'change'
+  },
   props: {
     show: {
       type: Boolean,
@@ -70,7 +77,7 @@ export default {
     type: {
       type: String,
       default: 'white',
-      validator(value) {
+      validator (value) {
         return [
           'dark',
           'success',
@@ -80,57 +87,50 @@ export default {
           'primary',
           'info',
           'vue'
-        ].includes(value);
+        ].includes(value)
       },
       description: 'Navbar color type'
     }
   },
-  model: {
-    prop: 'show',
-    event: 'change'
-  },
-  components: {
-    CollapseTransition
-  },
-  data() {
+  data () {
     return {
       transitionFinished: true
-    };
+    }
   },
   computed: {
-    classes() {
-      let color = `bg-${this.type}`;
-      let classes = [
+    classes () {
+      const color = `bg-${this.type}`
+      const classes = [
         { 'navbar-transparent': !this.show && this.transparent },
         { [`navbar-expand-${this.expand}`]: this.expand }
-      ];
+      ]
       if (this.position) {
-        classes.push(`navbar-${this.position}`);
+        classes.push(`navbar-${this.position}`)
       }
       if (
         !this.transparent ||
         (this.show && !this.transitionFinished) ||
         (!this.show && !this.transitionFinished)
       ) {
-        classes.push(color);
+        classes.push(color)
       }
-      return classes;
+      return classes
     },
-    hasMenu() {
-      return this.$slots.default;
+    hasMenu () {
+      return this.$slots.default
     }
   },
   methods: {
-    toggleMenu() {
-      this.$emit('change', !this.show);
+    toggleMenu () {
+      this.$emit('change', !this.show)
     },
-    onTransitionStart() {
-      this.transitionFinished = false;
+    onTransitionStart () {
+      this.transitionFinished = false
     },
-    onTransitionEnd() {
-      this.transitionFinished = true;
+    onTransitionEnd () {
+      this.transitionFinished = true
     }
   }
-};
+}
 </script>
 <style></style>

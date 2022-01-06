@@ -1,13 +1,15 @@
 <template>
-  <div class="row"><h3>Starter page</h3></div>
+  <div class="row">
+    <h3>Starter page</h3>
+  </div>
 </template>
 <script>
   export default {
-    name: 'starter-page',
+    name: 'StarterPage',
     layout: 'starter',
-    data() {
-      return {};
+    data () {
+      return {}
     }
-  };
+  }
 </script>
 <style></style>
