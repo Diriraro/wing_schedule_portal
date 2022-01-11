@@ -19,7 +19,7 @@
       <a class="navbar-brand" href="#pablo">{{ routeName }}</a>
     </div>
 
-    <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
+    <ul class="navbar-nav" :class="'mr-auto'">
       <div class="search-bar input-group" @click="searchModalVisible = true">
         <!--
           <input type="text" class="form-control" placeholder="Search...">
@@ -53,7 +53,7 @@
       </modal>
       <base-dropdown
         tag="li"
-        :menu-on-right="!$rtl.isRTL"
+        :menu-on-right="true"
         title-tag="a"
         class="nav-item"
         title-classes="nav-link"
@@ -107,9 +107,6 @@ export default {
       const { path } = this.$route
       const parts = path.split('/')
       return parts.map(p => this.capitalizeFirstLetter(p)).join(' ')
-    },
-    isRTL () {
-      return this.$rtl.isRTL
     }
   },
   methods: {

@@ -28,14 +28,14 @@
           Sidebar Mini
         </li>
         <li class="adjustments-line">
-          <div class="togglebutton switch-change-color mt-3">
+          <!-- <div class="togglebutton switch-change-color mt-3">
             <span class="label-switch">LIGHT MODE</span>
             <base-switch v-model="darkMode" @input="toggleMode" />
             <span class="label-switch label-right">DARK MODE</span>
-          </div>
+          </div> -->
         </li>
 
-        <li class="button-container mt-4">
+        <!-- <li class="button-container mt-4">
           <a
             href="https://www.creative-tim.com/learning-lab/nuxt/overview/black-dashboard"
             target="_blank"
@@ -60,18 +60,18 @@
           >
             Upgrade to PRO
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
 </template>
 <script>
-  import { BaseSwitch } from '@/components/MVP/BaseSwitch.vue'
+  // import { BaseSwitch } from '@/components/MVP/BaseSwitch.vue'
 
   export default {
     name: 'SidebarShare',
     components: {
-      BaseSwitch
+      // BaseSwitch
     },
     props: {
       backgroundColor: String

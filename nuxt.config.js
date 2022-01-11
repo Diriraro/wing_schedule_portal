@@ -84,7 +84,6 @@ export default {
     ["@nuxtjs/style-resources"],
     "@nuxtjs/device",
     "@nuxtjs/pwa",
-    "nuxt-i18n",
     // ["vue-social-sharing/nuxt"],
     // ['nuxt-moment', { locale: 'ko' }],
     "nuxt-moment",

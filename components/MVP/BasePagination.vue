@@ -1,18 +1,18 @@
 <template>
   <ul class="pagination" :class="paginationClass">
     <li
-      class="page-item prev-page"
       v-if="showArrows"
+      class="page-item prev-page"
       :class="{ disabled: value === 1 }"
     >
       <a class="page-link" aria-label="Previous" @click="prevPage">
-        <i class="tim-icons icon-double-left" aria-hidden="true"></i>
+        <i class="tim-icons icon-double-left" aria-hidden="true" />
       </a>
     </li>
     <li
-      class="page-item"
       v-for="item in range(minPage, maxPage)"
       :key="item"
+      class="page-item"
       :class="{ active: value === item }"
     >
       <a class="page-link" @click="changePage(item)">{{ item }}</a>
@@ -23,19 +23,19 @@
       :class="{ disabled: value === totalPages }"
     >
       <a class="page-link" aria-label="Next" @click="nextPage">
-        <i class="tim-icons icon-double-right" aria-hidden="true"></i>
+        <i class="tim-icons icon-double-right" aria-hidden="true" />
       </a>
     </li>
   </ul>
 </template>
 <script>
 export default {
-  name: 'base-pagination',
+  name: 'BasePagination',
   props: {
     type: {
       type: String,
       default: 'primary',
-      validator: value => {
+      validator: (value) => {
         return [
           'default',
           'primary',
@@ -43,7 +43,7 @@ export default {
           'success',
           'warning',
           'info'
-        ].includes(value);
+        ].includes(value)
       }
     },
     pageCount: {
@@ -72,77 +72,77 @@ export default {
     }
   },
   computed: {
-    paginationClass() {
-      return `pagination-${this.type}`;
+    paginationClass () {
+      return `pagination-${this.type}`
     },
-    totalPages() {
-      if (this.pageCount > 0) return this.pageCount;
+    totalPages () {
+      if (this.pageCount > 0) { return this.pageCount }
       if (this.total > 0) {
-        return Math.ceil(this.total / this.perPage);
+        return Math.ceil(this.total / this.perPage)
       }
-      return 1;
+      return 1
     },
-    defaultPagesToDisplay() {
+    defaultPagesToDisplay () {
       if (this.totalPages > 0 && this.totalPages < this.pagesToDisplay) {
-        return this.totalPages;
+        return this.totalPages
       }
-      return this.pagesToDisplay;
+      return this.pagesToDisplay
     },
-    minPage() {
+    minPage () {
       if (this.value >= this.defaultPagesToDisplay) {
-        const pagesToAdd = Math.floor(this.defaultPagesToDisplay / 2);
-        const newMaxPage = pagesToAdd + this.value;
+        const pagesToAdd = Math.floor(this.defaultPagesToDisplay / 2)
+        const newMaxPage = pagesToAdd + this.value
         if (newMaxPage > this.totalPages) {
-          return this.totalPages - this.defaultPagesToDisplay + 1;
+          return this.totalPages - this.defaultPagesToDisplay + 1
         }
-        return this.value - pagesToAdd;
+        return this.value - pagesToAdd
       } else {
-        return 1;
+        return 1
       }
     },
-    maxPage() {
+    maxPage () {
       if (this.value >= this.defaultPagesToDisplay) {
-        const pagesToAdd = Math.floor(this.defaultPagesToDisplay / 2);
-        const newMaxPage = pagesToAdd + this.value;
+        const pagesToAdd = Math.floor(this.defaultPagesToDisplay / 2)
+        const newMaxPage = pagesToAdd + this.value
         if (newMaxPage < this.totalPages) {
-          return newMaxPage;
+          return newMaxPage
         } else {
-          return this.totalPages;
+          return this.totalPages
         }
       } else {
-        return this.defaultPagesToDisplay;
-      }
-    }
-  },
-  methods: {
-    range(min, max) {
-      let arr = [];
-      for (let i = min; i <= max; i++) {
-        arr.push(i);
-      }
-      return arr;
-    },
-    changePage(item) {
-      this.$emit('input', item);
-    },
-    nextPage() {
-      if (this.value < this.totalPages) {
-        this.$emit('input', this.value + 1);
-      }
-    },
-    prevPage() {
-      if (this.value > 1) {
-        this.$emit('input', this.value - 1);
+        return this.defaultPagesToDisplay
       }
     }
   },
   watch: {
-    perPage() {
-      this.$emit('input', 1);
+    perPage () {
+      this.$emit('input', 1)
     },
-    total() {
-      this.$emit('input', 1);
+    total () {
+      this.$emit('input', 1)
+    }
+  },
+  methods: {
+    range (min, max) {
+      const arr = []
+      for (let i = min; i <= max; i++) {
+        arr.push(i)
+      }
+      return arr
+    },
+    changePage (item) {
+      this.$emit('input', item)
+    },
+    nextPage () {
+      if (this.value < this.totalPages) {
+        this.$emit('input', this.value + 1)
+      }
+    },
+    prevPage () {
+      if (this.value > 1) {
+        this.$emit('input', this.value - 1)
+      }
     }
   }
-};
+}
 </script>

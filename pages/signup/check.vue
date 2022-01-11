@@ -2,7 +2,7 @@
   <PageLayout>
     <template #content>
       <div>
-        <Login />
+        <Check />
       </div>
     </template>
   </PageLayout>
@@ -10,12 +10,12 @@
 
 <script>
 import PageLayout from '~/components/MVP/Common/PageLayout.vue'
-import Login from '~/components/MVP/Login/Login.vue'
+import Check from '~/components/MVP/Signup/Check.vue'
 
 export default {
   components: {
     PageLayout,
-    Login
+    Check
   },
   layout: 'olddefault'
 }
