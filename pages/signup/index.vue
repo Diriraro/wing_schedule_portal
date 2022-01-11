@@ -16,7 +16,8 @@ export default {
   components: {
     PageLayout,
     Signup
-  }
+  },
+  layout: 'olddefault'
 }
 </script>
 

@@ -3,7 +3,9 @@
     <thead :class="theadClasses">
       <tr>
         <slot name="columns" :columns="columns">
-          <th v-for="column in columns" :key="column">{{ column }}</th>
+          <th v-for="column in columns" :key="column">
+            {{ column }}
+          </th>
         </slot>
       </tr>
     </thead>
@@ -13,9 +15,10 @@
           <td
             v-for="(column, index) in columns"
             :key="index"
-            v-if="hasValue(item, column)"
           >
-            {{ itemValue(item, column) }}
+            <p v-if="hasValue(item, column)">
+              {{ itemValue(item, column) }}
+            </p>
           </td>
         </slot>
       </tr>
@@ -24,7 +27,7 @@
 </template>
 <script>
 export default {
-  name: 'base-table',
+  name: 'BaseTable',
   props: {
     columns: {
       type: Array,
@@ -53,18 +56,18 @@ export default {
     }
   },
   computed: {
-    tableClass() {
-      return this.type && `table-${this.type}`;
+    tableClass () {
+      return this.type && `table-${this.type}`
     }
   },
   methods: {
-    hasValue(item, column) {
-      return item[column.toLowerCase()] !== 'undefined';
+    hasValue (item, column) {
+      return item[column.toLowerCase()] !== 'undefined'
     },
-    itemValue(item, column) {
-      return item[column.toLowerCase()];
+    itemValue (item, column) {
+      return item[column.toLowerCase()]
     }
   }
-};
+}
 </script>
 <style></style>

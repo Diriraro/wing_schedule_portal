@@ -36,9 +36,10 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   color: #000;
+  background: #9dadd3;
 }
 a{
-  color: #2e2e2e;
+  color: #1f1cb8;
 }
 
 body{

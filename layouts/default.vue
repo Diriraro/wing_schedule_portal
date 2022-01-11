@@ -3,27 +3,27 @@
     <notifications />
     <side-bar
       :background-color="sidebarBackground"
-      :short-title="$t('sidebar.shortTitle')"
-      :title="$t('sidebar.title')"
+      :short-title="'sidebar.shortTitle'"
+      :title="'sidebar.title'"
     >
       <template slot="links">
         <sidebar-item
           :link="{
-            name: $t('sidebar.dashboard'),
+            name: 'sidebar.dashboard',
             icon: 'tim-icons icon-chart-pie-36',
             path: '/'
           }"
         />
         <sidebar-item
           :link="{
-            name: $t('sidebar.icons'),
+            name: 'sidebar.icons',
             icon: 'tim-icons icon-atom',
             path: '/icons'
           }"
         />
         <sidebar-item
           :link="{
-            name: $t('sidebar.maps'),
+            name: 'sidebar.maps',
             icon: 'tim-icons icon-pin',
             path: '/google'
           }"
@@ -31,7 +31,7 @@
 
         <sidebar-item
           :link="{
-            name: $t('sidebar.notifications'),
+            name: 'sidebar.notifications',
             icon: 'tim-icons icon-bell-55',
             path: '/notifications'
           }"
@@ -39,14 +39,14 @@
 
         <sidebar-item
           :link="{
-            name: $t('sidebar.userProfile'),
+            name: 'sidebar.userProfile',
             icon: 'tim-icons icon-single-02',
             path: '/user' }"
         />
 
         <sidebar-item
           :link="{
-            name: $t('sidebar.regularTables'),
+            name: 'sidebar.regularTables',
             icon: 'tim-icons icon-puzzle-10',
             path: '/regular'
           }"
@@ -54,7 +54,7 @@
 
         <sidebar-item
           :link="{
-            name: $t('sidebar.typography'),
+            name: 'sidebar.typography',
             icon: 'tim-icons icon-align-center',
             path: '/typography'
           }"
