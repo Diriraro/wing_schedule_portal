@@ -1,18 +1,18 @@
 <template>
   <SlideYUpTransition :duration="animationDuration">
     <div
+      v-show="show"
       ref="modal"
       class="modal fade"
-      @click.self="closeModal"
       :class="[
         { 'show d-block': show },
         { 'd-none': !show },
         { 'modal-mini': type === 'mini' }
       ]"
-      v-show="show"
       tabindex="-1"
       role="dialog"
       :aria-hidden="!show"
+      @click.self="closeModal"
     >
       <div
         class="modal-dialog"
@@ -31,31 +31,31 @@
           ]"
         >
           <div
+            v-if="$slots.header"
             class="modal-header"
             :class="[headerClasses]"
-            v-if="$slots.header"
           >
-            <slot name="header"></slot>
+            <slot name="header" />
             <slot name="close-button">
               <button
+                v-if="showClose"
                 type="button"
                 class="close"
-                v-if="showClose"
-                @click="closeModal"
                 data-dismiss="modal"
                 aria-label="Close"
+                @click="closeModal"
               >
-                <i class="tim-icons icon-simple-remove"></i>
+                <i class="tim-icons icon-simple-remove" />
               </button>
             </slot>
           </div>
 
           <div v-if="$slots.default" class="modal-body" :class="bodyClasses">
-            <slot></slot>
+            <slot />
           </div>
 
-          <div class="modal-footer" :class="footerClasses" v-if="$slots.footer">
-            <slot name="footer"></slot>
+          <div v-if="$slots.footer" class="modal-footer" :class="footerClasses">
+            <slot name="footer" />
           </div>
         </div>
       </div>
@@ -63,10 +63,10 @@
   </SlideYUpTransition>
 </template>
 <script>
-import { SlideYUpTransition } from 'vue2-transitions';
+import { SlideYUpTransition } from 'vue2-transitions'
 
 export default {
-  name: 'modal',
+  name: 'Modal',
   components: {
     SlideYUpTransition
   },
@@ -93,34 +93,40 @@ export default {
     type: {
       type: String,
       default: '',
-      validator(value) {
-        let acceptedValues = ['', 'notice', 'mini'];
-        return acceptedValues.indexOf(value) !== -1;
+      validator (value) {
+        const acceptedValues = ['', 'notice', 'mini']
+        return acceptedValues.includes(value)
       },
       description: 'Modal type (notice|mini|"") '
     },
     modalClasses: {
       type: [Object, String],
+      default: '',
       description: 'Modal dialog css classes'
     },
     modalContentClasses: {
       type: [Object, String],
+      default: '',
       description: 'Modal dialog content css classes'
     },
     gradient: {
       type: String,
+      default: '',
       description: 'Modal gradient type (danger, primary etc)'
     },
     headerClasses: {
       type: [Object, String],
+      default: '',
       description: 'Modal Header css classes'
     },
     bodyClasses: {
       type: [Object, String],
+      default: '',
       description: 'Modal Body css classes'
     },
     footerClasses: {
       type: [Object, String],
+      default: '',
       description: 'Modal Footer css classes'
     },
     animationDuration: {
@@ -129,39 +135,39 @@ export default {
       description: 'Modal transition duration'
     }
   },
-  methods: {
-    closeModal() {
-      this.$emit('update:show', false);
-      this.$emit('close');
-    },
-    scrollModalToBottom() {
-      if (!this.scrollToBottom) return;
-      let elm = this.$refs.modal;
-      elm.scrollTop = elm.scrollHeight - elm.clientHeight;
-    }
-  },
-  mounted() {
-    if (this.appendToBody) {
-      document.body.appendChild(this.$el);
-    }
-  },
-  destroyed() {
-    if (this.appendToBody && this.$el && this.$el.parentNode) {
-      this.$el.parentNode.removeChild(this.$el);
-    }
-  },
   watch: {
-    show(val) {
-      let documentClasses = document.body.classList;
+    show (val) {
+      const documentClasses = document.body.classList
       if (val) {
-        documentClasses.add('modal-open');
-        this.$nextTick(this.scrollModalToBottom);
+        documentClasses.add('modal-open')
+        this.$nextTick(this.scrollModalToBottom)
       } else {
-        documentClasses.remove('modal-open');
+        documentClasses.remove('modal-open')
       }
     }
+  },
+  mounted () {
+    if (this.appendToBody) {
+      document.body.appendChild(this.$el)
+    }
+  },
+  destroyed () {
+    if (this.appendToBody && this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el)
+    }
+  },
+  methods: {
+    closeModal () {
+      this.$emit('update:show', false)
+      this.$emit('close')
+    },
+    scrollModalToBottom () {
+      if (!this.scrollToBottom) { return }
+      const elm = this.$refs.modal
+      elm.scrollTop = elm.scrollHeight - elm.clientHeight
+    }
   }
-};
+}
 </script>
 <style>
 .modal.show {

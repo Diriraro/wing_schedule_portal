@@ -1,29 +1,8 @@
 export const state = () => ({
   sessionId: "",
+  checkNick: "",
   userInfo: { memberNo: "", userName: "", socialDivn: "", memberId: "" },
   alertInfo: null,
-  categoryList: [], // default.vue 1번 호출
-  recomKeywordList: [], // default.vue 1번 호출
-  recomAreaList: [], // default.vue 1번 호출
-  serializedAreaList: [],
-  productPolicyMap: {
-    instant_confirmation: {
-      policy: "instant_confirmation",
-      name: "즉시확정",
-      desc: "예약 후 확정 과정 없이 결제시 확정 되는 상품",
-    },
-    not_instant_voucher: {
-      policy: "not_instant_voucher",
-      name: "예약대기",
-      desc: "예약 후 운영자의 확정이 필요한 상품",
-    },
-    today_usable: {
-      policy: "today_usable",
-      // name: '당일사용가능',
-      name: "당일사용",
-      desc: "구매한 당일 바로 사용 가능한 상품",
-    },
-  },
   objPopup: {
     fullLoading: { show: false, data: {} }, // 전체로딩화면
     noticePopup: { show: true, data: {} },
@@ -37,24 +16,6 @@ export const state = () => ({
     optionDetailPopup: { show: false, data: {} },
     greenVoucherPayPopup: { show: false, data: {} },
     redVoucherPayPopup: { show: false, data: {} },
-    ticketPayPopup: { show: false, data: {} },
-    couponPayPopup: { show: false, data: {} },
-    mpointPopup: { show: false, data: {} },
-    certificationGuidePopup: { show: false, data: {} },
-    safePayGuidePopup: { show: false, data: {} },
-    safeChoicePopup: { show: false, data: {} },
-    agreeContPopup: { show: false, data: {} },
-    thirdPartyConsentPopup: { show: false, data: {} },
-    confirmHccCardPopup: { show: false, data: {} },
-    reserveConfirmOptionDetailPopup: { show: false, data: {} },
-    optionConfirmPopup: { show: false, data: {} },
-    inquireCreatePopup: { show: false, data: {} },
-    inquireDetailPopup: { show: false, data: {} },
-    mobileMypagePaymentPopup: { show: false, data: {} },
-    mypageVoucherPopup: { show: false, data: {} },
-    mobileInquireCreatePopup: { show: false, data: {} },
-    mobileImgBig: { show: false, data: {} },
-    mobileVoucherIframe: { show: false, data: {} },
   },
   popupStack: [],
 });
@@ -86,6 +47,9 @@ export const mutations = {
   setSessionId(state, value) {
     state.sessionId = value;
   },
+  setCheckNick(state, value) {
+    state.checkNick = value;
+  },
   setUserInfo(state, data) {
     // socialDivn : 소설 로그인 타입 (NAVER: 네이버, F: 페이스북, T: 트위터, K: 카카오, A: 애플)
     // memberNo: 회원번호. 값 존재 여부로 회원 로그인 여부 판단.
@@ -103,41 +67,9 @@ export const mutations = {
   openAlert(state, value) {
     state.alertInfo = value;
   },
-  setCategoryList(state, value) {
-    state.categoryList = value || [];
-  },
-  setRecomKeywordList(state, value) {
-    state.recomKeywordList = value || [];
-  },
-  setRecomAreaList(state, value) {
-    state.recomAreaList = value || [];
-  },
-  setSerializedAreaList(state, value) {
-    state.serializedAreaList = value;
-  },
-  setProductPolicyMap(state, value) {
-    state.productPolicyMap = {
-      ...state.productPolicyMap,
-      ...value,
-    };
-  },
   setPopupShow(state, { key, flag, data }) {
     state.objPopup[key].show = flag;
     state.objPopup[key].data = data || {};
-
-    // if (process.browser) { // 스크롤이 제일 위로 올라가서 막음
-    //   try {
-    //     if (flag) {
-    //       document.documentElement.classList.add('no_scroll'); // html
-    //       document.body.classList.add('no_scroll');
-    //     } else {
-    //       document.documentElement.classList.remove('no_scroll');
-    //       document.body.classList.remove('no_scroll');
-    //     }
-    //   } catch(e) {
-    //     console.log(e);
-    //   }
-    // }
   },
   pushPopupStack(state, value) {
     console.log(`pushPopupStack  ${value}`);

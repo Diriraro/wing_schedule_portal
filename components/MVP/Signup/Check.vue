@@ -5,24 +5,14 @@
       <div class="nicknameForm">
         <input v-model="nickname" type="text" class="nickname" placeholder="캐릭터이름">
       </div>
-      <button type="button" class="btn" @click="testCookie">
+      <button type="button" class="btn" @click="checkNickname">
         체크하기
       </button>
       <div class="bottomText">
         <p>길드에 가입된 캐릭터명을</p><p>정확히 적어 주세요.</p>
-        <!-- 처음 접속하셨나요? <em style="color: #1f1cb8; cursor:pointer;" @click="goSignUp"> 회원가입 </em> -->
       </div>
     </div>
   </div>
-  <!-- <div class="testLogin">
-    <input v-model="id" type="text" placeholder="id">
-    <input v-model="pw" type="password" placeholder="pw">
-    <input v-model="nickname" type="text" placeholder="nick">
-    <input v-model="email" type="text" placeholder="email">
-    <input v-model="charClass" type="text" placeholder="class">
-    <input type="button" value="로그인" @click="testSignup">
-    <input type="button" value="가입확인" @click="testCookie">
-  </div> -->
 </template>
 
 <script>
@@ -38,30 +28,15 @@
       }
     },
     methods: {
-      async testSignup () {
-        try {
-          const body = {
-            userIdPk: this.id,
-            password: this.pw,
-            nickname: this.nickname,
-            email: this.email,
-            charClass: this.charClass
-          }
-          const resp = await this.$apis.postSignApi('/wingUserCreate', body)
-          if (resp) {
-            console.log(resp)
-            this.$router.push('/')
-          }
-        } catch (e) {
-          console.log(e)
-        }
-      },
-      async testCookie () {
+      async checkNickname () {
         try {
           const resp = await this.$apis.getSignApi('/wingUserCheck', { nickname: this.nickname })
-          if (resp) {
+          if (!resp.data.isCheck) {
             alert(resp.data.message)
+            this.$store.commit('setCheckNick', this.nickname)
             this.$router.push('/signup')
+          } else {
+            alert(resp.data.message)
           }
         } catch (e) {
           alert('등록되지 않은 캐릭터명입니다. 관리자에게 문의하세요.')

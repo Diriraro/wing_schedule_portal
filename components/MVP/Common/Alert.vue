@@ -1,7 +1,7 @@
 <template>
   <div class="alertWrapper">
     <div class="content fixWidth">
-      <div class="message" v-html="$store.state.alertInfo.text" />
+      <div class="message" v-html="$store.state.alertInfo.text" /> <!--eslint-disable-line-->
       <div class="btnWrap" :class="$store.state.alertInfo.arrBtn.length > 1 ? 'multi' : ''">
         <button
           v-for="(x, index) in $store.state.alertInfo.arrBtn.slice(0, 2)"

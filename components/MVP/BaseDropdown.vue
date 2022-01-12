@@ -1,10 +1,10 @@
 <template>
   <component
     :is="tag"
+    v-click-outside="closeDropDown"
     class="dropdown"
     :class="[{ show: isOpen }, `drop${direction}`]"
     @click="toggleDropDown"
-    v-click-outside="closeDropDown"
   >
     <slot name="title-container" :is-open="isOpen">
       <component
@@ -16,7 +16,7 @@
         data-toggle="dropdown"
       >
         <slot name="title" :is-open="isOpen">
-          <i :class="icon"></i> {{ title }}
+          <i :class="icon" /> {{ title }}
         </slot>
       </component>
     </slot>
@@ -28,13 +28,13 @@
         menuClasses
       ]"
     >
-      <slot></slot>
+      <slot />
     </ul>
   </component>
 </template>
 <script>
 export default {
-  name: 'base-dropdown',
+  name: 'BaseDropdown',
   props: {
     tag: {
       type: String,
@@ -48,6 +48,7 @@ export default {
     },
     title: {
       type: String,
+      default: '',
       description: 'Dropdown title'
     },
     direction: {
@@ -57,14 +58,17 @@ export default {
     },
     icon: {
       type: String,
+      default: '',
       description: 'Dropdown icon'
     },
     titleClasses: {
       type: [String, Object, Array],
+      default: '',
       description: 'Title css classes'
     },
     menuClasses: {
       type: [String, Object],
+      default: '',
       description: 'Menu css classes'
     },
     menuOnRight: {
@@ -72,22 +76,22 @@ export default {
       description: 'Whether menu should appear on the right'
     }
   },
-  data() {
+  data () {
     return {
       isOpen: false
-    };
+    }
   },
   methods: {
-    toggleDropDown() {
-      this.isOpen = !this.isOpen;
-      this.$emit('change', this.isOpen);
+    toggleDropDown () {
+      this.isOpen = !this.isOpen
+      this.$emit('change', this.isOpen)
     },
-    closeDropDown() {
-      this.isOpen = false;
-      this.$emit('change', false);
+    closeDropDown () {
+      this.isOpen = false
+      this.$emit('change', false)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .dropdown {
