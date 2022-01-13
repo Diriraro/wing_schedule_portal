@@ -41,7 +41,7 @@
           // const resp = await axios.post('http://127.0.0.1:19490/wingService/wingUserLogin', { userIdPk: this.id, password: this.pw })
           if (resp) {
             if (resp.data.nickname) {
-              this.$cookies.set('nickname', resp.data.nickname)
+              this.$cookies.set('nickname', resp.data.nickname, 1 * 10 * 60 * 60)
               console.log(resp.data.nickname)
             }
             alert('환영합니다.')

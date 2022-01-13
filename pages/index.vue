@@ -2,27 +2,24 @@
   <div class="row">
     <!-- Big Chart -->
     <div class="col-12">
-      <card type="chart">
+      <card>
         <template slot="header">
           <div class="row">
-            <div class="col-sm-6" :class="'text-right'">
+            <div class="col-sm-6 text-left">
               <h5 class="card-category">
-                Total shipments
+                날개
               </h5>
               <h2 class="card-title">
-                Performance
+                공지사항
               </h2>
             </div>
-            <div class="col-sm-6 d-flex d-sm-block">
-              <div
-                class="btn-group btn-group-toggle"
-                :class="'float-left'"
-                data-toggle="buttons"
-              />
+          </div>
+          <div class="card-body">
+            <div class="typography-line">
+              <h4>aaa</h4>
             </div>
           </div>
         </template>
-        <div class="chart-area" />
       </card>
     </div>
 
