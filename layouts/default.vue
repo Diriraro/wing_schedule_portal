@@ -76,7 +76,6 @@
           <nuxt />
         </zoom-center-transition>
       </div>
-      <content-footer v-if="!isFullScreenRoute" />
     </div>
   </div>
 </template>
@@ -89,7 +88,6 @@
   // import SidebarShare from '@/components/MVP/Layout/SidebarSharePlugin.vue'
 
   import DashboardNavbar from '@/components/MVP/Layout/DashboardNavbar.vue'
-  import ContentFooter from '@/components/MVP/Layout/ContentFooter.vue'
   // import DashboardContent from '@/components/Layout/Content.vue'
   function hasElement (className) {
     return document.getElementsByClassName(className).length > 0
@@ -109,7 +107,6 @@
   export default {
     components: {
       DashboardNavbar,
-      ContentFooter,
       // DashboardContent,
       // SlideYDownTransition,
       ZoomCenterTransition
@@ -123,6 +120,12 @@
     computed: {
       isFullScreenRoute () {
         return this.$route.path === '/maps/full-screen'
+      }
+    },
+    beforeMount () {
+      if (this.$cookies.get('nickname') === '' || this.$cookies.get('nickname') === null) {
+        alert('재로그인이 필요해요')
+        this.$router.push('/login')
       }
     },
     mounted () {

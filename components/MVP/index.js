@@ -25,6 +25,8 @@ import BasePagination from "./BasePagination.vue";
 
 import SidebarPlugin from "./SidebarPlugin";
 
+export default {}; // warn 방지용
+
 export {
   BaseCheckbox,
   IconCheckbox,

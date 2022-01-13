@@ -8,16 +8,16 @@
       <div class="passForm">
         <input v-model="pw" type="password" class="pw" placeholder="PW">
       </div>
-      <button type="button" class="btn" @click="testLogin">
+      <button type="button" class="btnLogIn" @click="testLogin">
         LOG IN
-      </button>
-      <button type="button" class="btn" @click="testCookie">
-        CookieTest
       </button>
       <div class="bottomText">
         처음 접속하셨나요? <em style="color: #1f1cb8; cursor:pointer;" @click="goSignUp"> 회원가입 </em>
       </div>
     </div>
+    <!-- <button type="button" class="btnLogIn" @click="testCookie">
+      CookieTest
+    </button> -->
     <!-- <input v-model="id" type="text">
     <input v-model="pw" type="password">
     <input type="button" value="로그인" @click="testLogin">
@@ -40,6 +40,10 @@
           const resp = await this.$apis.postSignApi('/wingUserLogin', { userIdPk: this.id, password: this.pw })
           // const resp = await axios.post('http://127.0.0.1:19490/wingService/wingUserLogin', { userIdPk: this.id, password: this.pw })
           if (resp) {
+            if (resp.data.nickname) {
+              this.$cookies.set('nickname', resp.data.nickname)
+              console.log(resp.data.nickname)
+            }
             alert('환영합니다.')
             this.$router.push('/')
           }
@@ -69,14 +73,6 @@
 </script>
 
 <style lang="scss">
-*{
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  // font-family:sans-serif;
-
-}
-
 .loginForm {
   position:absolute;
   width:300px;
@@ -127,7 +123,7 @@
   background: none;
 }
 
-.btn {
+.btnLogIn {
   position:relative;
   // left:40%;
   // transform: translateX(-50%);
@@ -145,7 +141,7 @@
   display:inline;
 }
 
-.btn:hover {
+.btnLogIn:hover {
   background-position: right;
 }
 

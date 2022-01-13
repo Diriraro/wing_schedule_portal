@@ -14,7 +14,7 @@
       <div class="charClassForm">
         <input v-model="charClass" type="text" class="charClass" placeholder="직업">
       </div>
-      <button type="button" class="btn" @click="confirmSignUp">
+      <button type="button" class="btnSignUp" @click="confirmSignUp">
         회원가입
       </button>
       <div class="bottomText">
@@ -119,14 +119,6 @@
 </script>
 
 <style lang="scss">
-*{
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
-
-}
-
 .signupForm {
   position:absolute;
   width:600px;
@@ -209,7 +201,7 @@
   background: none;
 }
 
-.btn {
+.btnSignUp {
   position:relative;
   // left:40%;
   // transform: translateX(-50%);
@@ -227,7 +219,7 @@
   display:inline;
 }
 
-.btn:hover {
+.btnSignUp:hover {
   background-position: right;
 }
 

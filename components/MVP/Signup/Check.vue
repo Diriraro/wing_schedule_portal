@@ -5,11 +5,12 @@
       <div class="nicknameForm">
         <input v-model="nickname" type="text" class="nickname" placeholder="캐릭터이름">
       </div>
-      <button type="button" class="btn" @click="checkNickname">
+      <button type="button" class="btnCheckNick" @click="checkNickname">
         체크하기
       </button>
       <div class="bottomText">
         <p>길드에 가입된 캐릭터명을</p><p>정확히 적어 주세요.</p>
+        (대소문자 구분)
       </div>
     </div>
   </div>
@@ -49,14 +50,6 @@
 </script>
 
 <style lang="scss" scoped>
-*{
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
-
-}
-
 .checkForm {
   position:absolute;
   width:300px;
@@ -91,7 +84,7 @@
   background: none;
 }
 
-.btn {
+.btnCheckNick {
   position:relative;
   // left:40%;
   // transform: translateX(-50%);
@@ -109,7 +102,7 @@
   display:inline;
 }
 
-.btn:hover {
+.btnCheckNick:hover {
   background-position: right;
 }
 
