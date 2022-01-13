@@ -1,11 +1,11 @@
 <template>
   <component :is="tag" class="badge" :class="`badge-${type}`">
-    <slot></slot>
+    <slot />
   </component>
 </template>
 <script>
 export default {
-  name: 'badge',
+  name: 'Badge',
   props: {
     tag: {
       type: String,
@@ -15,20 +15,20 @@ export default {
     type: {
       type: String,
       default: 'default',
-      validator: value => {
-        let acceptedValues = [
+      validator: (value) => {
+        const acceptedValues = [
           'primary',
           'info',
           'success',
           'warning',
           'danger',
           'default'
-        ];
-        return acceptedValues.indexOf(value) !== -1;
+        ]
+        return acceptedValues.includes(value)
       },
       description: 'Badge type (primary|info|success|warning|danger|default)'
     }
   }
-};
+}
 </script>
 <style></style>
