@@ -192,7 +192,6 @@
           <nuxt />
         </zoom-center-transition>
       </div>
-      <content-footer v-if="!$route.meta.hideFooter" />
     </div>
   </div>
 </template>
@@ -205,7 +204,6 @@ import { ZoomCenterTransition } from 'vue2-transitions'
 import SidebarShare from './SidebarSharePlugin.vue'
 
 import DashboardNavbar from './DashboardNavbar.vue'
-import ContentFooter from './ContentFooter.vue'
 // import DashboardContent from './Content.vue'
 function hasElement (className) {
   return document.getElementsByClassName(className).length > 0
@@ -225,7 +223,6 @@ function initScrollbar (className) {
 export default {
   components: {
     DashboardNavbar,
-    ContentFooter,
     // DashboardContent,
     // SlideYDownTransition,
     ZoomCenterTransition,

@@ -4,9 +4,6 @@
  * Nuxt Black Dashboard - v1.0.0
  =========================================================
 
- * Product Page: https://www.creative-tim.com/product/nuxt-black-dashboard-pro
- * Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
  * Coded by Creative Tim
 
  =========================================================
@@ -14,7 +11,7 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
 
- // Core
+// Core
 
 @import "dashboard/custom/functions";
 @import "~bootstrap/scss/functions";
@@ -25,7 +22,7 @@
 @import "dashboard/custom/mixins";
 @import "~bootstrap/scss/mixins";
 
- // Bootstrap components
+// Bootstrap components
 
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
@@ -60,34 +57,34 @@
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
 
- // Custom components
+// Custom components
 
- @import "dashboard/custom/reboot.scss";
- @import "dashboard/custom/utilities.scss";
- @import "dashboard/custom/alerts.scss";
- @import "dashboard/custom/badge.scss";
- @import "dashboard/custom/buttons.scss";
- @import "dashboard/custom/dropdown.scss";
- @import "dashboard/custom/footer.scss";
- @import "dashboard/custom/forms.scss";
- @import "dashboard/custom/grid.scss";
- @import "dashboard/custom/icons.scss";
- @import "dashboard/custom/images.scss";
- @import "dashboard/custom/input-group.scss";
- @import "dashboard/custom/modal.scss";
- @import "dashboard/custom/nav.scss";
- @import "dashboard/custom/navbar.scss";
- @import "dashboard/custom/popover.scss";
- @import "dashboard/custom/progress.scss";
- @import "dashboard/custom/type.scss";
- @import "dashboard/custom/tables";
- @import "dashboard/custom/checkboxes-radio";
- @import "dashboard/custom/fixed-plugin";
- @import "dashboard/custom/sidebar-and-main-panel.scss";
- @import "dashboard/custom/misc.scss";
- @import "dashboard/custom/rtl.scss";
+@import "dashboard/custom/reboot.scss";
+@import "dashboard/custom/utilities.scss";
+@import "dashboard/custom/alerts.scss";
+@import "dashboard/custom/badge.scss";
+@import "dashboard/custom/buttons.scss";
+@import "dashboard/custom/dropdown.scss";
+@import "dashboard/custom/footer.scss";
+@import "dashboard/custom/forms.scss";
+@import "dashboard/custom/grid.scss";
+@import "dashboard/custom/icons.scss";
+@import "dashboard/custom/images.scss";
+@import "dashboard/custom/input-group.scss";
+@import "dashboard/custom/modal.scss";
+@import "dashboard/custom/nav.scss";
+@import "dashboard/custom/navbar.scss";
+@import "dashboard/custom/popover.scss";
+@import "dashboard/custom/progress.scss";
+@import "dashboard/custom/type.scss";
+@import "dashboard/custom/tables";
+@import "dashboard/custom/checkboxes-radio";
+@import "dashboard/custom/fixed-plugin";
+@import "dashboard/custom/sidebar-and-main-panel.scss";
+@import "dashboard/custom/misc.scss";
+@import "dashboard/custom/rtl.scss";
 
- // Vendor / Plugins
+// Vendor / Plugins
 
 @import "dashboard/custom/vendor/plugin-bootstrap-switch.scss";
 @import "dashboard/custom/vendor/plugin-perfect-scrollbar.scss";
@@ -106,7 +103,7 @@
 
 // Cards
 
-@import 'dashboard/custom/card';
+@import "dashboard/custom/card";
 @import "dashboard/custom/cards/card-chart";
 @import "dashboard/custom/cards/card-map";
 @import "dashboard/custom/cards/card-user";

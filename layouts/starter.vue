@@ -4,7 +4,6 @@
     <side-bar
       :background-color="sidebarBackground"
       short-title="CT"
-      title="Creative Tim"
     >
       <template slot="links">
         <sidebar-item
@@ -29,7 +28,6 @@
           <router-view />
         </zoom-center-transition>
       </div>
-      <content-footer v-if="!isFullScreenRoute" />
     </div>
   </div>
 </template>
@@ -41,7 +39,6 @@
   // import { SlideYDownTransition, ZoomCenterTransition } from 'vue2-transitions'
   import { ZoomCenterTransition } from 'vue2-transitions'
   import DashboardNavbar from '@/components/MVP/Layout/starter/SampleNavbar.vue'
-  import ContentFooter from '@/components/MVP/Layout/starter/SampleFooter.vue'
   // import DashboardContent from '@/components/Layout/Content.vue'
 
   function hasElement (className) {
@@ -62,7 +59,6 @@
   export default {
     components: {
       DashboardNavbar,
-      ContentFooter,
       // DashboardContent,
       // SlideYDownTransition,
       ZoomCenterTransition

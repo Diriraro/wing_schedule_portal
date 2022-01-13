@@ -182,11 +182,6 @@ export default {
       ]
     }
   },
-  computed: {
-    enableRTL () {
-      return this.$route.query.enableRTL
-    }
-  },
   mounted () {
   },
   methods: {
