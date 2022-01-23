@@ -6,6 +6,7 @@
 export default {
   validate ({ redirect }) {
     redirect('/main')
+    console('메인으로 리다이렉트')
     return true
   }
 }
