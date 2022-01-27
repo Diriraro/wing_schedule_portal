@@ -4,26 +4,26 @@
     <side-bar
       :background-color="sidebarBackground"
       :short-title="'sidebar.shortTitle'"
-      :title="'sidebar.title'"
+      :title="'날개길드'"
     >
       <template slot="links">
         <sidebar-item
           :link="{
-            name: 'sidebar.dashboard',
+            name: '일정',
             icon: 'tim-icons icon-chart-pie-36',
             path: '/'
           }"
         />
         <sidebar-item
           :link="{
-            name: 'sidebar.icons',
+            name: '공지사항',
             icon: 'tim-icons icon-atom',
             path: '/icons'
           }"
         />
         <sidebar-item
           :link="{
-            name: 'sidebar.maps',
+            name: '개인페이지',
             icon: 'tim-icons icon-pin',
             path: '/google'
           }"
